@@ -1,0 +1,2 @@
+2025-03-17T00:13:28.761Z | POST /api/send-email | Status: 400 | Body: {"email":"juanita@test.com","motivo":"1","mensaje":"por favor ayuda soy un desastre con los colores."}
+2025-03-17T00:20:32.917Z | POST /api/send-email | Status: 200 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"adm@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"Soy un test"}
