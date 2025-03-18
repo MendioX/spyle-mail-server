@@ -6,10 +6,47 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
+const rateLimit = require("express-rate-limit");
+
+const whitelist = process.env.WHITELIST.split(",");
 
 // Middleware
-app.use(express.json());
-app.use(cors()); // Permite solicitudes desde el frontend
+const validateOrigin = (req, res, next) => {
+  const allowedDomains = [
+      "vps-4768993-x.dattaweb.com",
+      "http://localhost:3000"
+    ]; // Reemplaza con tu dominio
+  
+  
+    const requestOrigin = req.headers.origin || req.headers.referer;
+
+  if (!requestOrigin || !allowedDomains.includes(requestOrigin)) {
+    return res.status(403).json({ error: "Acceso no autorizado" });
+  }
+
+  next(); // Si el dominio es válido, continúa con la siguiente función
+};
+
+
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 10, // Límite de 100 solicitudes por IP
+});
+
+app.use(limiter);
+
+app.use(express.json({ limit: "10kb" }));
+
+
+
+app.use(cors(
+  {
+    origin: ["vps-4768993-x.dattaweb.com",
+              "http://localhost:3000"], // Reemplaza con tu dominio
+    methods: ["POST", "GET"], // Métodos permitidos
+  }
+)); // Permite solicitudes desde el frontend
 
 // Middleware para registrar cada petición y respuesta
 app.use((req, res, next) => {
@@ -27,11 +64,16 @@ app.use((req, res, next) => {
 });
 
 // Ruta para enviar correos
-app.post("/api/send-email", async (req, res) => {
+app.post("/api/send-email",validateOrigin ,async (req, res) => {
   const { toClient, email, motivo, mensaje } = req.body;
 
+ 
   if (!email || !motivo || !mensaje || !toClient) {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  }
+
+  if (!whitelist.includes(toClient.toLowerCase())) {
+    return res.status(400).json({ error: "No autorizado." });
   }
 
   try {

@@ -1,2 +1,8 @@
 2025-03-17T00:13:28.761Z | POST /api/send-email | Status: 400 | Body: {"email":"juanita@test.com","motivo":"1","mensaje":"por favor ayuda soy un desastre con los colores."}
 2025-03-17T00:20:32.917Z | POST /api/send-email | Status: 200 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"adm@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"Soy un test"}
+2025-03-18T11:40:38.063Z | POST /api/send-email | Status: 403 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"test@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"45612"}
+2025-03-18T11:41:02.993Z | POST /api/send-email | Status: 403 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"test@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"23"}
+2025-03-18T11:52:12.616Z | POST /api/send-email | Status: 403 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"test@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"23"}
+2025-03-18T11:52:27.019Z | POST /api/send-email | Status: 200 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"test@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"23"}
+2025-03-18T12:13:49.744Z | POST /api/send-email | Status: 400 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"test@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"12346"}
+2025-03-18T12:14:32.640Z | POST /api/send-email | Status: 200 | Body: {"toClient":"mendiolarcolombonahuelmt6@gmail.com","email":"test@test.com","motivo":"Quiero una asesoría de imagen","mensaje":"12346"}
