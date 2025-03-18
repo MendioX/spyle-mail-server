@@ -44,7 +44,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use(cors(
   {
     origin: ["https://vps-4768993-x.dattaweb.com",
-              "http://localhost:3000"], // Reemplaza con tu dominio
+              "http://localhost:5000"], // Reemplaza con tu dominio
     methods: ["POST", "GET"], // Métodos permitidos
   }
 )); // Permite solicitudes desde el frontend
