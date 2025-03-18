@@ -14,7 +14,7 @@ const whitelist = process.env.WHITELIST.split(",");
 const validateOrigin = (req, res, next) => {
   const allowedDomains = [
       "https://vps-4768993-x.dattaweb.com",
-      "http://localhost:3000",
+      "http://localhost:5000",
       "http://127.0.0.1:5000"
     ]; // Reemplaza con tu dominio
   
