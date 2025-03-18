@@ -13,7 +13,7 @@ const whitelist = process.env.WHITELIST.split(",");
 // Middleware
 const validateOrigin = (req, res, next) => {
   const allowedDomains = [
-      "vps-4768993-x.dattaweb.com",
+      "https://vps-4768993-x.dattaweb.com",
       "http://localhost:3000",
       "http://127.0.0.1:5000"
     ]; // Reemplaza con tu dominio
@@ -43,7 +43,7 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(cors(
   {
-    origin: ["vps-4768993-x.dattaweb.com",
+    origin: ["https://vps-4768993-x.dattaweb.com",
               "http://localhost:3000"], // Reemplaza con tu dominio
     methods: ["POST", "GET"], // Métodos permitidos
   }
