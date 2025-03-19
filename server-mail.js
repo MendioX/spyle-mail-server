@@ -22,6 +22,13 @@ const validateOrigin = (req, res, next) => {
     const requestOrigin = req.headers.origin || req.headers.referer;
 
   if (!requestOrigin || !allowedDomains.includes(requestOrigin)) {
+
+    const errorLogEntry = `${new Date().toISOString()} | Acceso no autorizado. Origin no permitido: ${requestOrigin}\n`;
+
+    fs.appendFile(path.join(__dirname, "logs.txt"), errorLogEntry, (err) => {
+      if (err) console.error("Error escribiendo en logs.txt:", err);
+    });
+
     return res.status(403).json({ error: "Acceso no autorizado" });
   }
 
