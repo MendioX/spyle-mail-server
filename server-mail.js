@@ -9,20 +9,13 @@ const app = express();
 const rateLimit = require("express-rate-limit");
 
 const whitelist = process.env.WHITELIST.split(",");
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 
 // Middleware
 const validateOrigin = (req, res, next) => {
-  const allowedDomains = [
-      "https://vps-4768993-x.dattaweb.com",
-      "https://spyle.com.ar",
-      "http://localhost:5000",
-      "http://127.0.0.1:5000"
-    ]; // Reemplaza con tu dominio
-  
-  
-    const requestOrigin = req.headers.origin || req.headers.referer;
+  const requestOrigin = req.headers.origin || req.headers.referer;
 
-  if (!requestOrigin || !allowedDomains.includes(requestOrigin)) {
+  if (!requestOrigin || !allowedOrigins.includes(requestOrigin)) {
 
     const errorLogEntry = `${new Date().toISOString()} | Acceso no autorizado. Origin no permitido: ${requestOrigin}\n`;
 
@@ -51,8 +44,7 @@ app.use(express.json({ limit: "10kb" }));
 
 app.use(cors(
   {
-    origin: ["https://vps-4768993-x.dattaweb.com",
-              "http://localhost:5000"], // Reemplaza con tu dominio
+    origin: allowedOrigins,
     methods: ["POST", "GET"], // Métodos permitidos
   }
 )); // Permite solicitudes desde el frontend
@@ -87,15 +79,17 @@ app.post("/api/send-email",validateOrigin ,async (req, res) => {
 
   try {
     let transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
     let mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_FROM,
       to: toClient,
       subject: motivo,
       text: `Mensaje de: ${email}\n\n${mensaje}`,
